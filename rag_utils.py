@@ -22,7 +22,8 @@ class RAGManager:
     def __init__(self, embeddings_model: str = 'mxbai-embed-large'):
         self.embeddings = OpenAIEmbeddings(
             model=embeddings_model,
-            base_url='http://localhost:11434/v1'
+            base_url='http://localhost:11434/v1',
+            api_key='ollama',
         )
         self.vector_store = Chroma(embedding_function=self.embeddings)
 
