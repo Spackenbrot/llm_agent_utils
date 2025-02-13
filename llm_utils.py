@@ -1,9 +1,7 @@
-import asyncio
-
 from langchain_core.tools import tool
-from rag_utils import RAGManager
-from search_utils import search
-from scrape_utils import crawl_site
+from utils.rag_utils import RAGManager
+from utils.search_utils import google_Search
+from utils.scrape_utils import crawl_site
 
 rag = RAGManager()
 
@@ -21,15 +19,15 @@ def retrieve(query: str):
     return serialized, retrieved_docs
 
 @tool
-def search_the_web(query: str, max_results = 5):
+def search_the_web(query: str, max_results: int = 5):
     """
     Searches the web using your given query.
     Returns a list of urls and content previews.
-    Use that with the scrape tool to get the full
-    page content of the url where the preview matches
-    your query the most.
+    Use one or more of these urls with the scrape
+    tool to get the full page content of the url
+    where the preview matches your query the most.
     """
-    return search(query, max_results)
+    return google_Search(query, max_results)
 
 @tool
 async def scrape_website(url: str):
